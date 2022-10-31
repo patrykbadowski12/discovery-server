@@ -1,4 +1,4 @@
-version: 0.1
+version: 0.2
 
 phases:
   pre_build:
@@ -9,12 +9,12 @@ phases:
     commands:
       - echo Build started on `date`
       - mvn install
-      - docker build -t java-app-ecr .
-      - docker tag java-app-ecr:latest 076132730982.dkr.ecr.eu-west-1.amazonaws.com/java-app-ecr:latest
+      - docker build -t discovery-service .
+      - docker tag discovery-service:latest 076132730982.dkr.ecr.eu-west-1.amazonaws.com/discovery-service:latest
   post_build:
     commands:
        - echo Build completed on `date`
        - echo Pushing the Docker image...
        - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 076132730982.dkr.ecr.eu-west-1.amazonaws.com
-       - docker tag java-app-ecr:latest 076132730982.dkr.ecr.eu-west-1.amazonaws.com/java-app-ecr:latest
-       - docker push 076132730982.dkr.ecr.eu-west-1.amazonaws.com/java-app-ecr:latest
+       - docker tag discovery-service:latest 076132730982.dkr.ecr.eu-west-1.amazonaws.com/discovery-service:latest
+       - docker push 076132730982.dkr.ecr.eu-west-1.amazonaws.com/discovery-service:latest
